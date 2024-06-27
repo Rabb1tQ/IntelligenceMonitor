@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %C{1}%logger{36} - %msg%n"/>
+        </Console>
+        <File name="GithubMonitorFile" fileName="GithubMonitor.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %C{1}%logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="GithubMonitorFile"/>
+        </Root>
+        <Logger name="com.rabbitq" level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="GithubMonitorFile"/>
+        </Logger>
+    </Loggers>
+
+    <!-- Define custom log levels using plugins -->
+    <CustomLevels>
+        <CustomLevel name="SUCCESS" intLevel="1000" />
+    </CustomLevels>
+</Configuration>

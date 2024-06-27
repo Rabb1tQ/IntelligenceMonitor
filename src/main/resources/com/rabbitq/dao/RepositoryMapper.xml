@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbitq.dao.RepositoryMapper">
+    <resultMap id="GitHubToolResultMap" type="com.rabbitq.entity.Repository">
+        <id property="id" column="id"/>
+        <result property="repoName" column="repo_name"/>
+        <result property="pushedAt" column="pushed_at"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <update id="update" parameterType="com.rabbitq.entity.Repository">
+        UPDATE repository SET pushed_at = #{pushed_at} WHERE id = #{id}
+    </update>
+    <select id="selectByRepoName" parameterType="string" resultType="com.rabbitq.entity.Repository">
+        SELECT * FROM repository WHERE repo_name = #{repo_name}
+    </select>
+    <insert id="insert" parameterType="com.rabbitq.entity.Repository" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO repository (repo_name, pushed_at,description) VALUES (#{repoName}, #{pushedAt}, #{description})
+    </insert>
+
+</mapper>

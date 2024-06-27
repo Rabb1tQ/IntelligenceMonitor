@@ -1,0 +1,29 @@
+# Github token
+github_token: ''
+
+# 钉钉 webhook
+webhook: ''
+secretKey: ''
+
+# 红队工具监控列表
+tools_list:
+  - 'BeichenDream/Godzilla'
+  - 'rebeyond/Behinder'
+  - 'AntSwordProject/antSword'
+  # ... 其他工具
+
+# 关键词监控列表
+keyword_list:
+  - 'remote command execute'
+  # ... 其他关键词
+
+# 用户监控列表
+user_list:
+  - 'yhy0'
+  - 'su18'
+  - 'BeichenDream'
+  # ... 其他用户
+
+# 定时任务配置
+schedule:
+  interval: '60分钟'  # 或者 '60分钟'

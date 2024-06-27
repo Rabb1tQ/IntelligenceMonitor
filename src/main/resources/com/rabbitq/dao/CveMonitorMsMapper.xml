@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbitq.dao.CveMonitorMsMapper">
+    <select id="selectAll" resultType="com.rabbitq.entity.CveMonitorMs">
+        SELECT * FROM cve_monitor_ms
+    </select>
+    <select id="selectByCveNumber" parameterType="string" resultType="com.rabbitq.entity.CveMonitorMs">
+        SELECT * FROM cve_monitor_ms WHERE cve_number = #{cveNumber}
+    </select>
+    <!-- 其他SQL映射 -->
+</mapper>
