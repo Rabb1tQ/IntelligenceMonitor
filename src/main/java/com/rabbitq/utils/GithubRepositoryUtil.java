@@ -21,10 +21,9 @@ import static com.rabbitq.utils.GlobalConfig.init;
 public class GithubRepositoryUtil {
 
     public static void getRepositoryInfo(SqlSessionFactory sqlSessionFactory, String strRepoFullName, JSONObject jsonObject) {
-        Repository repository;
         SqlSession session = sqlSessionFactory.openSession();
         RepositoryMapper gitHubToolMapper = session.getMapper(RepositoryMapper.class);
-        repository = gitHubToolMapper.selectByRepoName(strRepoFullName);
+        Repository repository = gitHubToolMapper.selectByRepoName(strRepoFullName);
         session.commit();
         if (repository != null) {
             ZonedDateTime timeLocalDate = ZonedDateTime.parse(repository.getPushedAt());
@@ -53,6 +52,7 @@ public class GithubRepositoryUtil {
             }
 
         }
+        session.close();
 
     }
 }

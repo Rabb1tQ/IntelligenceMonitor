@@ -26,4 +26,4 @@ user_list:
 
 # 定时任务配置
 schedule:
-  interval: '60分钟'  # 或者 '60分钟'
+  interval: '10分钟'  # 或者 '60分钟'

@@ -25,11 +25,11 @@ public class RedTeamInfoGatherImpl implements InfoGatherInterface {
 
     @Override
     public void getRepos() {
-        String strReposLink = "https://api.github.com/repos/{repo_full_name}";
+        String strReposLink = "https://api.github.com/repos/%s";
         List<String> listRepository;
         try {
 
-            listRepository = (List<String>) GlobalConfig.globalConfig.get("user_list");
+            listRepository = (List<String>) GlobalConfig.globalConfig.get("tools_list");
         } catch (Exception e) {
             return;
         }

@@ -12,10 +12,21 @@ public class DingTalkRobot {
 
     public static String buildGithubMarkdownText(String userName, String repositoryName, String description, String repositoryUrl) {
         StringBuilder text = new StringBuilder();
+        text.append("# github仓库监控：").append("\n\n");
         text.append("- **用户名**: ").append(userName).append(System.lineSeparator());
         text.append("- **仓库名称**: ").append(repositoryName).append(System.lineSeparator());
         text.append("- **描述**: ").append(description).append(System.lineSeparator());
         text.append("- **仓库地址**: [").append(repositoryName).append("](").append(repositoryUrl).append(")");
+        return text.toString();
+    }
+
+    public static String buildMSVulMarkdownText(String cveNumber, String releaseDate, String tag, String mitreUrl) {
+        StringBuilder text = new StringBuilder();
+        text.append("# ").append("\n\n");
+        text.append("- **CVE编号：**: ").append(cveNumber).append(System.lineSeparator());
+        text.append("- **发布时间**: ").append(releaseDate).append(System.lineSeparator());
+        text.append("- **描述**: ").append(tag).append(System.lineSeparator());
+        text.append("- **mitre地址**: [").append(mitreUrl);
         return text.toString();
     }
 

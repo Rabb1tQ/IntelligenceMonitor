@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rabbitq.dao.CveMonitorMsMapper">
+    <resultMap id="GitHubToolResultMap" type="com.rabbitq.entity.CveMonitorMs">
+        <id property="cveNumber" column="cve_number"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="mitreUrl" column="mitre_url"/>
+        <result property="tag" column="tag"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.rabbitq.entity.Repository" useGeneratedKeys="true" keyProperty="cveNumber">
+        INSERT INTO cve_monitor_ms (cve_number, release_date,mitre_url,tag) VALUES (#{cveNumber}, #{releaseDate}, #{mitreUrl}, #{tag})
+    </insert>
     <select id="selectAll" resultType="com.rabbitq.entity.CveMonitorMs">
         SELECT * FROM cve_monitor_ms
     </select>

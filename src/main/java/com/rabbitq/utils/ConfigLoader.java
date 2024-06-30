@@ -20,7 +20,6 @@ public enum ConfigLoader {
         } catch (IOException e) {
             System.out.println("\033[31m配置文件读取失败：" + e);
         }
-
     }
 
     public Map<String, Object> getConfig() {

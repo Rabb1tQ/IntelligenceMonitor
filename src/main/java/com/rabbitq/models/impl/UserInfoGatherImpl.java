@@ -41,9 +41,14 @@ public class UserInfoGatherImpl implements InfoGatherInterface {
             String result1 = HttpRequest.get(strAPI).execute().body();
             JSONArray jsonArray = JSONArray.parseArray(result1);
             for (Object o : jsonArray) {
-                JSONObject jsonObject = (JSONObject) o;
-                String strRepoFullName = String.valueOf(jsonObject.get("full_name"));
-                getRepositoryInfo(sqlSessionFactory, strRepoFullName, jsonObject);
+                try {
+                    JSONObject jsonObject = (JSONObject) o;
+                    String strRepoFullName = String.valueOf(jsonObject.get("full_name"));
+                    getRepositoryInfo(sqlSessionFactory, strRepoFullName, jsonObject);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
         }

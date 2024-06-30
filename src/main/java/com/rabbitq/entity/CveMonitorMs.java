@@ -12,7 +12,6 @@ import lombok.Data;
 @Data
 public class CveMonitorMs {
     private String cveNumber;
-    private String cveTitle;
     private String releaseDate;
     private String mitreUrl;
     private String tag;

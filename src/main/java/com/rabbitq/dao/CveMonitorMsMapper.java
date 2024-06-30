@@ -1,6 +1,7 @@
 package com.rabbitq.dao;
 
 import com.rabbitq.entity.CveMonitorMs;
+import com.rabbitq.entity.Repository;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,5 +17,5 @@ import java.util.List;
 public interface CveMonitorMsMapper {
     List<CveMonitorMs> selectAll();
     CveMonitorMs selectByCveNumber(String cveNumber);
-
+    int insert(CveMonitorMs record);
 }

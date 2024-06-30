@@ -1,6 +1,7 @@
 package com.rabbitq.job;
 
 import com.rabbitq.models.InfoGatherInterface;
+import com.rabbitq.utils.GlobalConfig;
 import com.rabbitq.utils.InfoGatherClassScanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,8 +28,12 @@ public class ThreatIntelligenceJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) {
-//        JobDataMap dataMap = context.getMergedJobDataMap();
-//        Map<String, Object> config = (Map<String, Object>) dataMap.get("config");
+        String initFile = System.getProperty("user.dir") + "/init";
+        File file = new File(initFile);
+        if (file.exists()) {
+            GlobalConfig.init = true;
+        }
+
         // 执行您的任务，使用配置信息
         logger.info("开始抓取情报: {}", new java.util.Date());
 
@@ -45,18 +50,13 @@ public class ThreatIntelligenceJob implements Job {
                 System.out.println("具体异常："+e.getMessage());
             }
         }
-        String initFile=System.getProperty("user.dir") + "/SubDic";
-        File file = new File(initFile);
-        if(file.exists()){
+        if(!file.exists()){
             try {
                 file.createNewFile();
                 init=true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
-            init=true;
         }
 
     }
