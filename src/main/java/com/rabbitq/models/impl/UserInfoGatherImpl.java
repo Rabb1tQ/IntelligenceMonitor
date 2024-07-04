@@ -38,7 +38,13 @@ public class UserInfoGatherImpl implements InfoGatherInterface {
         SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
         for (String s : listUser) {
             String strAPI = String.format(strUserReposLink, s);
-            String result1 = HttpRequest.get(strAPI).execute().body();
+            String result1;
+            String strGithubToken=String.valueOf(GlobalConfig.globalConfig.get("github_token"));
+            if (strGithubToken.isEmpty()){
+                result1 = HttpRequest.get(strAPI).execute().body();
+            }else {
+                result1 = HttpRequest.get(strAPI).header("Authorization","token "+strGithubToken).execute().body();
+            }
             JSONArray jsonArray = JSONArray.parseArray(result1);
             for (Object o : jsonArray) {
                 try {

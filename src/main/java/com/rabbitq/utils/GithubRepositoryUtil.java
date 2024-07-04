@@ -33,7 +33,7 @@ public class GithubRepositoryUtil {
                 gitHubToolMapper.update(repository);
                 session.commit();
                 String[] arrRepoFullName=strRepoFullName.split("/");
-                String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github/"+strRepoFullName);
+                String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github.com/"+strRepoFullName);
                 DingTalkRobot.sendMarkdownMessage(content);
             } else {
                 System.out.println("数据库中已存在仓库：" + strRepoFullName);
@@ -47,7 +47,7 @@ public class GithubRepositoryUtil {
             gitHubToolMapper.insert(repository);
             session.commit();
             if(init){
-                String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github/"+strRepoFullName);
+                String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github.com/"+strRepoFullName);
                 DingTalkRobot.sendMarkdownMessage(content);
             }
 

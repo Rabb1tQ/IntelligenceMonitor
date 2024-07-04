@@ -8,7 +8,9 @@ import com.rabbitq.utils.GlobalConfig;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.rabbitq.utils.GithubRepositoryUtil.getRepositoryInfo;
 
@@ -36,7 +38,13 @@ public class RedTeamInfoGatherImpl implements InfoGatherInterface {
         SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
         for (String strRepoFullName : listRepository) {
             String strAPI = String.format(strReposLink, strRepoFullName);
-            String result1 = HttpRequest.get(strAPI).execute().body();
+            String result1;
+            String strGithubToken=String.valueOf(GlobalConfig.globalConfig.get("github_token"));
+            if (strGithubToken.isEmpty()){
+                result1 = HttpRequest.get(strAPI).execute().body();
+            }else {
+                result1 = HttpRequest.get(strAPI).header("Authorization","token "+strGithubToken).execute().body();
+            }
             JSONObject jsonObject = JSONObject.parseObject(result1);
 
             getRepositoryInfo(sqlSessionFactory, strRepoFullName, jsonObject);

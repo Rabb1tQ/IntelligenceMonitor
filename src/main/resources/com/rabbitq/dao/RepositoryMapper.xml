@@ -11,7 +11,7 @@
     </resultMap>
 
     <update id="update" parameterType="com.rabbitq.entity.Repository">
-        UPDATE repository SET pushed_at = #{pushed_at} WHERE id = #{id}
+        UPDATE repository SET pushed_at = #{pushedAt} WHERE id = #{id}
     </update>
     <select id="selectByRepoName" parameterType="string" resultType="com.rabbitq.entity.Repository">
         SELECT * FROM repository WHERE repo_name = #{repo_name}
