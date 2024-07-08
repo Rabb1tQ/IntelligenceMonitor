@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rabbitq.dao.AvdMapper">
+    <resultMap id="BaseResultMap" type="com.rabbitq.entity.AvdEntity">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="vulName" column="vul_name" jdbcType="VARCHAR"/>
+        <result property="vulType" column="vul_type" jdbcType="VARCHAR"/>
+        <result property="vulDate" column="vul_date" jdbcType="VARCHAR"/>
+        <result property="cveNumber" column="cve_number" jdbcType="VARCHAR"/>
+        <result property="expStatus" column="exp_status" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="suggest" column="suggest" jdbcType="VARCHAR"/>
+        <result property="reference" column="reference" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByVulName" parameterType="string" resultType="com.rabbitq.entity.AvdEntity">
+        SELECT * FROM avd_vul_info WHERE vul_name = #{vulName}
+    </select>
+    <insert id="insert" parameterType="com.rabbitq.entity.AvdEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO avd_vul_info (vul_name, vul_type,vul_date,cve_number,exp_status,description,suggest,reference,level)
+        VALUES (#{vulName}, #{vulType}, #{vulDate}, #{cveNumber}, #{expStatus}, #{description}, #{suggest}, #{reference}, #{level})
+    </insert>
+
+</mapper>
