@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="db.properties"/>
+    <properties url="file:./db.properties"/>
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
@@ -11,8 +11,8 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-<!--                <property name="driver" value="org.sqlite.JDBC"/>-->
-<!--                <property name="url" value="jdbc:sqlite:cmdb.db"/>-->
+                <!--                <property name="driver" value="org.sqlite.JDBC"/>-->
+                <!--                <property name="url" value="jdbc:sqlite:cmdb.db"/>-->
                 <!-- 数据库驱动 -->
                 <property name="driver" value="${driver}"/>
                 <!-- 数据库连接URL -->

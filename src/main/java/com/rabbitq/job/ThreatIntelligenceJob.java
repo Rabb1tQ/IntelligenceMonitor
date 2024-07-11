@@ -10,7 +10,12 @@ import org.quartz.JobExecutionContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import static com.rabbitq.utils.GlobalConfig.init;
 
@@ -28,6 +33,20 @@ public class ThreatIntelligenceJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) {
+        // 获取当前系统时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 将系统时间转换为北京时间
+        ZonedDateTime beijingTime = now.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("Asia/Shanghai"));
+
+        // 获取北京时间的时分
+        int hour = beijingTime.getHour();
+        int minute = beijingTime.getMinute();
+
+        // 判断是否在北京时间1点至8点之间
+        if (hour >= 1 && hour < 8) {
+            return;
+        }
         String initFile = System.getProperty("user.dir") + "/init";
         File file = new File(initFile);
         if (file.exists()) {
@@ -47,7 +66,7 @@ public class ThreatIntelligenceJob implements Job {
             } catch (Exception e) {
                 // 捕捉子类方法执行的异常
                 System.out.println("Exception in calling method : "+impl.getClass().getName());
-                System.out.println("具体异常："+e.getMessage());
+                e.printStackTrace();
             }
         }
         if(!file.exists()){

@@ -35,8 +35,7 @@ public class GithubRepositoryUtil {
                 String[] arrRepoFullName=strRepoFullName.split("/");
                 String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github.com/"+strRepoFullName);
                 DingTalkRobot.sendMarkdownMessage(content);
-            } else {
-                System.out.println("数据库中已存在仓库：" + strRepoFullName);
+                System.out.println(strRepoFullName);
             }
         } else {
             String[] arrRepoFullName=strRepoFullName.split("/");

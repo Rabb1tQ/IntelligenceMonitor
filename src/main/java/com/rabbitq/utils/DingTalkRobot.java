@@ -89,7 +89,7 @@ public class DingTalkRobot {
             BASE64Encoder base64Encoder = new BASE64Encoder();
             String sign = URLEncoder.encode(base64Encoder.encode(signData), "UTF-8");
 
-            System.out.println(sign);
+//            System.out.println(sign);
             // 构建请求URL
 
             String urlStr = webhookUrl + "&timestamp=" + timestamp + "&sign=" + sign;
