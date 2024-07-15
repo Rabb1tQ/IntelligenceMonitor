@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbitq.dao.OscsVulInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.rabbitq.entity.OscsVulInfo">
+            <result property="publicTime" column="public_time" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="level" column="level" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="suggest" column="suggest" jdbcType="VARCHAR"/>
+            <result property="reference" column="reference" jdbcType="VARCHAR"/>
+            <result property="vulnType" column="vuln_type" jdbcType="VARCHAR"/>
+            <result property="cveId" column="cve_id" jdbcType="VARCHAR"/>
+            <result property="cnvdId" column="cnvd_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByTitle" parameterType="string" resultType="com.rabbitq.entity.OscsVulInfo">
+        SELECT * FROM oscs_vul_info WHERE title = #{title}
+    </select>
+    <insert id="insert" parameterType="com.rabbitq.entity.OscsVulInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO oscs_vul_info (public_time, title,level,description,suggest,reference,vuln_type,cve_id,cnvd_id)
+        VALUES (#{publicTime}, #{title}, #{level},  #{description},  #{suggest}, #{reference}, #{vulnType}, #{cve_id}, #{cnvd_id})
+    </insert>
+
+</mapper>

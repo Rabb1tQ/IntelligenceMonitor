@@ -4,6 +4,7 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson2.JSONObject;
 import com.rabbitq.entity.AvdEntity;
 import com.rabbitq.entity.CisaVulInfo;
+import com.rabbitq.entity.OscsVulInfo;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Mac;
@@ -65,9 +66,30 @@ public class DingTalkRobot {
         return text.toString();
     }
 
+    public static String buildOscsMarkdownText(OscsVulInfo oscsVulInfo) {
+        StringBuilder text = new StringBuilder();
+
+        text.append("# ").append(oscsVulInfo.getTitle()).append("</br></br>\n");
+        text.append("* CVE编号：").append(oscsVulInfo.getCveId()).append(System.lineSeparator());
+        text.append("* CNVD编号：").append(oscsVulInfo.getCnvdId()).append(System.lineSeparator());
+        text.append("* 披露日期：").append(oscsVulInfo.getPublicTime()).append(System.lineSeparator());
+        text.append("* 风险等级：").append(oscsVulInfo.getLevel()).append(System.lineSeparator());
+        text.append("* 漏洞类型：").append(oscsVulInfo.getVulnType()).append(System.lineSeparator());
+
+        text.append("### 漏洞描述：").append(System.lineSeparator());
+        text.append(oscsVulInfo.getDescription()).append("</br></br>\n");
+
+        text.append("### 修复建议：").append("\n\n");
+        text.append(oscsVulInfo.getSuggest()).append("</br></br>\n");
+
+        text.append("### 参考链接：").append("\n\n");
+        text.append(oscsVulInfo.getReference());
+        return text.toString();
+    }
+
     public static String buildMSVulMarkdownText(String cveNumber, String releaseDate, String tag, String mitreUrl) {
         StringBuilder text = new StringBuilder();
-        text.append("# ").append("\n\n");
+        text.append("# 微软漏洞提醒").append("\n\n");
         text.append("- **CVE编号：**: ").append(cveNumber).append(System.lineSeparator());
         text.append("- **发布时间**: ").append(releaseDate).append(System.lineSeparator());
         text.append("- **描述**: ").append(tag).append(System.lineSeparator());
