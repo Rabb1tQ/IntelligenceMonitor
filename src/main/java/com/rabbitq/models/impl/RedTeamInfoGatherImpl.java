@@ -8,9 +8,7 @@ import com.rabbitq.utils.GlobalConfig;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.rabbitq.utils.GithubRepositoryUtil.getRepositoryInfo;
 

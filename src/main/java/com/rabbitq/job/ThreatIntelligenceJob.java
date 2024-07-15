@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 import static com.rabbitq.utils.GlobalConfig.init;
 
@@ -28,8 +26,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 
 public class ThreatIntelligenceJob implements Job {
-
-    private static final Logger logger = LogManager.getLogger(ThreatIntelligenceJob.class);
+    private static final Logger log = LogManager.getLogger(ThreatIntelligenceJob.class);
 
     @Override
     public void execute(JobExecutionContext context) {
@@ -41,7 +38,7 @@ public class ThreatIntelligenceJob implements Job {
 
         // 获取北京时间的时分
         int hour = beijingTime.getHour();
-        int minute = beijingTime.getMinute();
+//        int minute = beijingTime.getMinute();
 
         // 判断是否在北京时间1点至8点之间
         if (hour >= 1 && hour < 8) {
@@ -54,7 +51,7 @@ public class ThreatIntelligenceJob implements Job {
         }
 
         // 执行您的任务，使用配置信息
-        logger.info("开始抓取情报: {}", new java.util.Date());
+        log.info("开始抓取情报: {}", new java.util.Date());
 
         // ... 实现威胁情报抓取的逻辑
         List<InfoGatherInterface> implementations = InfoGatherClassScanner.scan();
@@ -66,7 +63,7 @@ public class ThreatIntelligenceJob implements Job {
             } catch (Exception e) {
                 // 捕捉子类方法执行的异常
                 System.out.println("Exception in calling method : "+impl.getClass().getName());
-                e.printStackTrace();
+                log.error(e);
             }
         }
         if(!file.exists()){

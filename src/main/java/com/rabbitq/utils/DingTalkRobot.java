@@ -5,6 +5,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.rabbitq.entity.AvdEntity;
 import com.rabbitq.entity.CisaVulInfo;
 import com.rabbitq.entity.OscsVulInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Mac;
@@ -13,6 +15,8 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 public class DingTalkRobot {
+
+    private static final Logger log = LoggerFactory.getLogger(DingTalkRobot.class);
 
     public static String buildGithubMarkdownText(String userName, String repositoryName, String description, String repositoryUrl) {
         StringBuilder text = new StringBuilder();
@@ -111,8 +115,6 @@ public class DingTalkRobot {
             BASE64Encoder base64Encoder = new BASE64Encoder();
             String sign = URLEncoder.encode(base64Encoder.encode(signData), "UTF-8");
 
-//            System.out.println(sign);
-            // 构建请求URL
 
             String urlStr = webhookUrl + "&timestamp=" + timestamp + "&sign=" + sign;
 
@@ -128,7 +130,7 @@ public class DingTalkRobot {
             String response = HttpUtil.post(urlStr, json.toJSONString());
             System.out.println(response);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("消息发送失败：",e);
         }
     }
 

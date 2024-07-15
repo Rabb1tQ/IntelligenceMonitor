@@ -1,7 +1,6 @@
 package com.rabbitq.dao;
 
 import com.rabbitq.entity.CveMonitorMs;
-import com.rabbitq.entity.Repository;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.rabbitq.dao;
 
 
-import com.rabbitq.entity.AvdEntity;
 import com.rabbitq.entity.OscsVulInfo;
 
 /**

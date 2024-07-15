@@ -5,6 +5,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +20,7 @@ import java.io.InputStream;
 
 
 public class MyBatisUtil {
+    private static final Logger log = LoggerFactory.getLogger(MyBatisUtil.class);
     @Getter
     private static SqlSessionFactory sqlSessionFactory;
 
@@ -27,7 +30,7 @@ public class MyBatisUtil {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("配置文件读取失败",e);
         }
     }
 

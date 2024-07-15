@@ -8,6 +8,8 @@ import com.rabbitq.models.InfoGatherInterface;
 import com.rabbitq.utils.GlobalConfig;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -23,6 +25,8 @@ import static com.rabbitq.utils.GithubRepositoryUtil.getRepositoryInfo;
 @InfoGatherInterfaceImplementation
 public class UserInfoGatherImpl implements InfoGatherInterface {
 
+
+    private static final Logger log = LoggerFactory.getLogger(UserInfoGatherImpl.class);
 
     @Override
     public void getRepos() {
@@ -53,7 +57,7 @@ public class UserInfoGatherImpl implements InfoGatherInterface {
                     getRepositoryInfo(sqlSessionFactory, strRepoFullName, jsonObject);
                 }
                 catch (Exception e){
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             }
 
