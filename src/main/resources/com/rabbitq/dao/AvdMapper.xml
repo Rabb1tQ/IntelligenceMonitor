@@ -19,7 +19,8 @@
     </select>
     <insert id="insert" parameterType="com.rabbitq.entity.AvdEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO avd_vul_info (vul_name, vul_type,vul_date,cve_number,exp_status,description,suggest,reference,level)
-        VALUES (#{vulName}, #{vulType}, #{vulDate}, #{cveNumber}, #{expStatus}, #{description}, #{suggest}, #{reference}, #{level})
+        VALUES (#{vulName}, #{vulType}, #{vulDate}, #{cveNumber}, #{expStatus}, #{description}, #{suggest},
+        #{reference}, #{level})
     </insert>
 
 </mapper>

@@ -1,26 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rabbitq.dao.CisaVulInfoMapper">
-
     <resultMap id="BaseResultMap" type="com.rabbitq.entity.CisaVulInfo">
-            <result property="cveNumber" column="cve_number" jdbcType="VARCHAR"/>
-            <result property="vendor" column="vendor" jdbcType="VARCHAR"/>
-            <result property="product" column="product" jdbcType="VARCHAR"/>
-            <result property="vulnerabilityName" column="vulnerability_name" jdbcType="VARCHAR"/>
-            <result property="dateAdded" column="date_added" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="suggest" column="suggest" jdbcType="VARCHAR"/>
-            <result property="reference" column="reference" jdbcType="VARCHAR"/>
+        <result property="cveNumber" column="cve_number" jdbcType="VARCHAR"/>
+        <result property="vendor" column="vendor" jdbcType="VARCHAR"/>
+        <result property="product" column="product" jdbcType="VARCHAR"/>
+        <result property="vulnerabilityName" column="vulnerability_name" jdbcType="VARCHAR"/>
+        <result property="dateAdded" column="date_added" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="suggest" column="suggest" jdbcType="VARCHAR"/>
+        <result property="reference" column="reference" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="selectByCveNumber" parameterType="string" resultType="com.rabbitq.entity.CisaVulInfo">
         SELECT * FROM cisa_vul_info WHERE cve_number = #{cveNumber}
     </select>
-    <insert id="insert" parameterType="com.rabbitq.entity.AvdEntity" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO cisa_vul_info (cve_number, vendor,product,vulnerability_name,date_added,description,suggest,reference)
-        VALUES (#{cveNumber}, #{vendor}, #{product}, #{vulnerabilityName}, #{dateAdded}, #{description}, #{suggest}, #{reference})
+    <insert id="insert" parameterType="com.rabbitq.entity.CisaVulInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO cisa_vul_info (cve_number,
+        vendor,product,vulnerability_name,date_added,description,suggest,reference)
+        VALUES (#{cveNumber}, #{vendor}, #{product}, #{vulnerabilityName}, #{dateAdded}, #{description}, #{suggest},
+        #{reference})
     </insert>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.rabbitq.dao;
 
 
 import com.rabbitq.entity.OscsVulInfo;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author test
@@ -9,6 +10,7 @@ import com.rabbitq.entity.OscsVulInfo;
 * @createDate 2024-07-09 00:59:05
 * @Entity generator.domain.OscsVulInfo
 */
+@Mapper
 public interface OscsVulInfoMapper  {
     OscsVulInfo selectByTitle(String title);
     int insert(OscsVulInfo oscsVulInfo);

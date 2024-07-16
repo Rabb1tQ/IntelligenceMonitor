@@ -21,7 +21,7 @@
     </select>
     <insert id="insert" parameterType="com.rabbitq.entity.OscsVulInfo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO oscs_vul_info (public_time, title,level,description,suggest,reference,vuln_type,cve_id,cnvd_id)
-        VALUES (#{publicTime}, #{title}, #{level},  #{description},  #{suggest}, #{reference}, #{vulnType}, #{cve_id}, #{cnvd_id})
+        VALUES (#{publicTime}, #{title}, #{level},  #{description},  #{suggest}, #{reference}, #{vulnType}, #{cveId}, #{cnvdId})
     </insert>
 
 </mapper>

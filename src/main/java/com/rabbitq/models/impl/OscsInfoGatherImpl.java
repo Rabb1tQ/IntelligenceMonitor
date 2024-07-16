@@ -33,7 +33,7 @@ public class OscsInfoGatherImpl implements InfoGatherInterface {
         String detailURL = "https://www.oscs1024.com/oscs/v1/vdb/info";
         String result1 = HttpRequest.post(strOscsReportURL).execute().body();
         JSONObject jsonObjectAPIResult = JSONObject.parseObject(result1);
-        JSONArray jsonArray = jsonObjectAPIResult.getJSONArray("data");
+        JSONArray jsonArray =  jsonObjectAPIResult.getJSONObject("data").getJSONArray("data");
         SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -53,12 +53,12 @@ public class OscsInfoGatherImpl implements InfoGatherInterface {
             String mps = jsonObjectVulInfo.getString("mps");
             String strParam = "{\"vuln_no\":\"%s\"}";
             String resultDetail = HttpRequest.post(detailURL).body(String.format(strParam, mps)).execute().body();
-            JSONObject jsonObjectVulInfoDetail = JSONObject.parseObject(resultDetail).getJSONObject("data");
+            JSONObject jsonObjectVulInfoDetail = JSONObject.parseObject(resultDetail).getJSONArray("data").getJSONObject(0);
             oscsVulInfo.setSuggest(jsonObjectVulInfoDetail.getString("soulution_data"));
             JSONArray jsonArrayReference = jsonObjectVulInfoDetail.getJSONArray("references");
             List<String> listReferences = new ArrayList<>();
             for (int j = 0; j < jsonArrayReference.size(); j++) {
-                listReferences.add(jsonArrayReference.getJSONObject(i).getString("reference"));
+                listReferences.add(jsonArrayReference.getJSONObject(j).getString("url"));
             }
             oscsVulInfo.setReference(String.valueOf(listReferences));
             oscsVulInfo.setLevel(jsonObjectVulInfoDetail.getString("level"));

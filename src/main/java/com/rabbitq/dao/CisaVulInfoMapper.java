@@ -1,6 +1,7 @@
 package com.rabbitq.dao;
 
 import com.rabbitq.entity.CisaVulInfo;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author test
@@ -8,6 +9,7 @@ import com.rabbitq.entity.CisaVulInfo;
 * @createDate 2024-07-08 00:33:41
 * @Entity com.rabbitq.entity.CisaVulInfo
 */
+@Mapper
 public interface CisaVulInfoMapper {
     CisaVulInfo selectByCveNumber(String cveNumber);
     int insert(CisaVulInfo cisaVulInfo);

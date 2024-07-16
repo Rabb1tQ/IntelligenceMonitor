@@ -28,5 +28,8 @@
         <mapper resource="com/rabbitq/dao/CveMonitorMapper.xml"/>
         <mapper resource="com/rabbitq/dao/CveMonitorMsMapper.xml"/>
         <mapper resource="com/rabbitq/dao/RepositoryMapper.xml"/>
+        <mapper resource="com/rabbitq/dao/AvdMapper.xml"/>
+        <mapper resource="com/rabbitq/dao/CisaVulInfoMapper.xml"/>
+        <mapper resource="com/rabbitq/dao/OscsVulInfoMapper.xml"/>
     </mappers>
 </configuration>

@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @Author: Rabb1tQ
@@ -58,7 +59,8 @@ public class AVDInfoGatherImpl  implements InfoGatherInterface {
                 Elements elmDetial=docDetial.select(".rounded").select("div.text-detail");
                 avd.setDescription(elmDetial.get(0).text());
                 avd.setSuggest(elmDetial.get(1).text());
-                avd.setReference(elmDetial.get(2).text());
+                String reference= elmDetial.get(2).text().replace("参考链接","").replace(" ","</br>");
+                avd.setReference(reference);
                 avd.setLevel(docDetial.select(".badge").get(0).text());
                 avdMapper.insert(avd);
                 session.commit();
