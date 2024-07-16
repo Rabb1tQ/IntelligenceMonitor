@@ -11,13 +11,13 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.rabbitq.entity.Repository" useGeneratedKeys="true" keyProperty="cveNumber">
-        INSERT INTO cve_monitor_ms (cve_number, release_date,mitre_url,tag) VALUES (#{cveNumber}, #{releaseDate}, #{mitreUrl}, #{tag})
+        INSERT INTO ms_vul_info (cve_number, release_date,mitre_url,tag) VALUES (#{cveNumber}, #{releaseDate}, #{mitreUrl}, #{tag})
     </insert>
     <select id="selectAll" resultType="com.rabbitq.entity.CveMonitorMs">
-        SELECT * FROM cve_monitor_ms
+        SELECT * FROM ms_vul_info
     </select>
     <select id="selectByCveNumber" parameterType="string" resultType="com.rabbitq.entity.CveMonitorMs">
-        SELECT * FROM cve_monitor_ms WHERE cve_number = #{cveNumber}
+        SELECT * FROM ms_vul_info WHERE cve_number = #{cveNumber}
     </select>
     <!-- 其他SQL映射 -->
 </mapper>
