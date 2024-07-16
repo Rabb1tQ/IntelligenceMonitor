@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.rabbitq.entity.AvdEntity;
 import com.rabbitq.entity.CisaVulInfo;
 import com.rabbitq.entity.OscsVulInfo;
+import com.rabbitq.entity.TiVulInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
@@ -25,6 +26,24 @@ public class DingTalkRobot {
         text.append("- **仓库名称**: ").append(repositoryName).append(System.lineSeparator());
         text.append("- **描述**: ").append(description).append(System.lineSeparator());
         text.append("- **仓库地址**: [").append(repositoryName).append("](").append(repositoryUrl).append(")");
+        return text.toString();
+    }
+
+
+    public static String buildTiMarkdownText(TiVulInfo tiVulInfo) {
+        StringBuilder text = new StringBuilder();
+
+        text.append("# ").append(tiVulInfo.getVulName()).append("</br></br>\n");
+        text.append("* CVE编号：").append(tiVulInfo.getCveId()).append(System.lineSeparator());
+        text.append("* CNVD编号：").append(tiVulInfo.getCnvdId()).append(System.lineSeparator());
+        text.append("* 披露日期：").append(tiVulInfo.getPublishTime()).append(System.lineSeparator());
+        text.append("* 风险等级：").append(tiVulInfo.getRatingLevel()).append(System.lineSeparator());
+        text.append("* 漏洞标签：").append(tiVulInfo.getTags()).append(System.lineSeparator());
+        text.append("* 漏洞类型：").append(tiVulInfo.getVulType()).append(System.lineSeparator());
+
+        text.append("### 漏洞描述：").append(System.lineSeparator());
+        text.append(tiVulInfo.getDescription()).append("</br></br>\n");
+
         return text.toString();
     }
 

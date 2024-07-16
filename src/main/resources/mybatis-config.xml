@@ -31,5 +31,6 @@
         <mapper resource="com/rabbitq/dao/AvdMapper.xml"/>
         <mapper resource="com/rabbitq/dao/CisaVulInfoMapper.xml"/>
         <mapper resource="com/rabbitq/dao/OscsVulInfoMapper.xml"/>
+        <mapper resource="com/rabbitq/dao/TiVulInfoMapper.xml"/>
     </mappers>
 </configuration>
