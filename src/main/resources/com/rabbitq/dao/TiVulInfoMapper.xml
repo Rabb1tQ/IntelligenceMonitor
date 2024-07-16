@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbitq.dao.TiVulInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.rabbitq.entity.TiVulInfo">
+            <result property="vulName" column="vul_name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="ratingLevel" column="rating_level" jdbcType="VARCHAR"/>
+            <result property="publishTime" column="publish_time" jdbcType="VARCHAR"/>
+            <result property="tags" column="tags" jdbcType="VARCHAR"/>
+            <result property="vulType" column="vul_type" jdbcType="VARCHAR"/>
+            <result property="cveId" column="cve_id" jdbcType="VARCHAR"/>
+            <result property="cnvdId" column="cnvd_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByVulName" parameterType="string" resultType="com.rabbitq.entity.TiVulInfo">
+        SELECT * FROM ti_vul_info WHERE vul_name = #{vulName}
+    </select>
+    <insert id="insert" parameterType="com.rabbitq.entity.TiVulInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ti_vul_info (vul_name, vul_type,rating_level,cve_id,cnvd_id,description,tags,publish_time)
+        VALUES (#{vulName}, #{vulType}, #{ratingLevel}, #{cveId}, #{cnvdId}, #{description}, #{tags}, #{publishTime})
+    </insert>
+
+</mapper>
