@@ -32,5 +32,6 @@
         <mapper resource="com/rabbitq/dao/CisaVulInfoMapper.xml"/>
         <mapper resource="com/rabbitq/dao/OscsVulInfoMapper.xml"/>
         <mapper resource="com/rabbitq/dao/TiVulInfoMapper.xml"/>
+        <mapper resource="com/rabbitq/dao/ThreatbookVulInfoMapper.xml"/>
     </mappers>
 </configuration>

@@ -2,10 +2,7 @@ package com.rabbitq.utils;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson2.JSONObject;
-import com.rabbitq.entity.AvdEntity;
-import com.rabbitq.entity.CisaVulInfo;
-import com.rabbitq.entity.OscsVulInfo;
-import com.rabbitq.entity.TiVulInfo;
+import com.rabbitq.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
@@ -26,6 +23,18 @@ public class DingTalkRobot {
         text.append("- **仓库名称**: ").append(repositoryName).append(System.lineSeparator());
         text.append("- **描述**: ").append(description).append(System.lineSeparator());
         text.append("- **仓库地址**: [").append(repositoryName).append("](").append(repositoryUrl).append(")");
+        return text.toString();
+    }
+
+    public static String buildThreatbookMarkdownText(ThreatbookVulInfo threatbookVulInfo) {
+        StringBuilder text = new StringBuilder();
+
+        text.append("# ").append(threatbookVulInfo.getVulnName()).append("</br></br>\n");
+        text.append("* 漏洞标签：").append(threatbookVulInfo.getTags()).append(System.lineSeparator());
+        text.append("* 披露日期：").append(threatbookVulInfo.getVulnUpdateTime()).append(System.lineSeparator());
+        text.append("* 风险等级：").append(threatbookVulInfo.getRiskLevel()).append(System.lineSeparator());
+        text.append("* 影响产品：").append(threatbookVulInfo.getAffects()).append(System.lineSeparator());
+
         return text.toString();
     }
 
@@ -122,6 +131,9 @@ public class DingTalkRobot {
 
 
     public static void sendMarkdownMessage(String content) {
+        if(true){
+            return;
+        }
         try {
             String webhookUrl = String.valueOf(GlobalConfig.globalConfig.get("webhook"));
             long timestamp = System.currentTimeMillis();

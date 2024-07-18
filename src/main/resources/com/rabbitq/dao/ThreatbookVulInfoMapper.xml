@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbitq.dao.ThreatbookVulInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.rabbitq.entity.ThreatbookVulInfo">
+        <result property="riskLevel" column="risk_level" jdbcType="VARCHAR"/>
+        <result property="vulnName" column="vuln_name" jdbcType="VARCHAR"/>
+        <result property="vulnUpdateTime" column="vuln_update_time" jdbcType="VARCHAR"/>
+        <result property="affects" column="affects" jdbcType="VARCHAR"/>
+        <result property="tags" column="tags" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectByVulName" parameterType="string" resultType="com.rabbitq.entity.ThreatbookVulInfo">
+        SELECT *
+        FROM threatbook_vul_info
+        WHERE vuln_name = #{vulnName}
+    </select>
+    <insert id="insert" parameterType="com.rabbitq.entity.ThreatbookVulInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO threatbook_vul_info (vuln_name, risk_level, vuln_update_time, affects,tags)
+        VALUES (#{vulnName}, #{riskLevel}, #{vulnUpdateTime}, #{affects}, #{tags})
+    </insert>
+
+</mapper>
