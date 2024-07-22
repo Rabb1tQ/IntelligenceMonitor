@@ -1,13 +1,11 @@
 package com.rabbitq.models.impl;
 
-import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.rabbitq.annotations.InfoGatherInterfaceImplementation;
 import com.rabbitq.dao.ThreatbookVulInfoMapper;
 import com.rabbitq.entity.ThreatbookVulInfo;
-import com.rabbitq.entity.TiVulInfo;
 import com.rabbitq.models.InfoGatherInterface;
 import com.rabbitq.utils.DingTalkRobot;
 import com.rabbitq.utils.MyBatisUtil;

@@ -15,14 +15,14 @@ create table avd_vul_info
 
 create table cisa_vul_info
 (
-    cve_number         varchar(50)   null,
-    vendor             varchar(255)  null comment '供应商',
-    product            varchar(255)  null,
-    vulnerability_name varchar(500)  null,
-    date_added         varchar(50)   null comment '漏洞公开日期',
-    description        text          null,
-    suggest            text          null comment '缓解措施',
-    reference          text null comment '引用'
+    cve_number         varchar(50)  null,
+    vendor             varchar(255) null comment '供应商',
+    product            varchar(255) null,
+    vulnerability_name varchar(500) null,
+    date_added         varchar(50)  null comment '漏洞公开日期',
+    description        text         null,
+    suggest            text         null comment '缓解措施',
+    reference          text         null comment '引用'
 );
 
 create table ms_vul_info
@@ -55,10 +55,19 @@ create table repository
         primary key,
     repo_name   varchar(1000) default '0' not null,
     pushed_at   varchar(200)  default ''  not null,
-    description text             null
+    description text                      null
 )
     engine = InnoDB
     charset = utf8mb4;
+
+create table threatbook_vul_info
+(
+    risk_level       varchar(10)  null comment '风险等级',
+    vuln_name        varchar(500) null,
+    vuln_update_time varchar(50)  null comment '更新时间',
+    affects          varchar(500) null,
+    tags             varchar(500) null
+);
 
 create table ti_vul_info
 (
