@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.rabbitq.utils.GlobalConfig.init;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @Author: Rabb1tQ
@@ -26,6 +28,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 @InfoGatherInterfaceImplementation
 public class ThreatbookInfoGatherImpl implements InfoGatherInterface {
+    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String strInfoLinkURL = "https://x.threatbook.com/v5/node/vul_module/homePage";
@@ -69,7 +72,7 @@ public class ThreatbookInfoGatherImpl implements InfoGatherInterface {
             threatbookVulInfo.setAffects(listAffects.toString());
 
             threatbookVulInfoMapper.insert(threatbookVulInfo);
-
+            log.info("新增情报："+vulnName);
 
             if (init) {
                 String content = DingTalkRobot.buildThreatbookMarkdownText(threatbookVulInfo);
