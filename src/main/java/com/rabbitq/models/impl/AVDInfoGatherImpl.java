@@ -3,11 +3,14 @@ package com.rabbitq.models.impl;
 import com.rabbitq.annotations.InfoGatherInterfaceImplementation;
 import com.rabbitq.dao.AvdMapper;
 import com.rabbitq.entity.AvdEntity;
+import com.rabbitq.job.ThreatIntelligenceJob;
 import com.rabbitq.models.InfoGatherInterface;
 import com.rabbitq.utils.DingTalkRobot;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,7 +28,7 @@ import java.util.Arrays;
 
 @InfoGatherInterfaceImplementation
 public class AVDInfoGatherImpl  implements InfoGatherInterface {
-
+    private static final Logger log = LogManager.getLogger(AVDInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String strInfoLinkURL="https://avd.aliyun.com/high-risk/list";
@@ -65,6 +68,7 @@ public class AVDInfoGatherImpl  implements InfoGatherInterface {
                 avdMapper.insert(avd);
                 session.commit();
                 session.close();
+                log.info("新增情报："+vulName);
                 String content= DingTalkRobot.buildAvdMarkdownText(avd);
                 DingTalkRobot.sendMarkdownMessage(content);
             }

@@ -3,12 +3,16 @@ package com.rabbitq.utils;
 import com.alibaba.fastjson2.JSONObject;
 import com.rabbitq.dao.RepositoryMapper;
 import com.rabbitq.entity.Repository;
+import com.rabbitq.models.impl.MicrosoftInfoGatherImpl;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.time.ZonedDateTime;
 
 import static com.rabbitq.utils.GlobalConfig.init;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @Author: Rabb1tQ
@@ -19,6 +23,8 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 
 public class GithubRepositoryUtil {
+
+    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
 
     public static void getRepositoryInfo(SqlSessionFactory sqlSessionFactory, String strRepoFullName, JSONObject jsonObject) {
         SqlSession session = sqlSessionFactory.openSession();
@@ -45,6 +51,7 @@ public class GithubRepositoryUtil {
             repository.setDescription(String.valueOf(jsonObject.get("description")));
             gitHubToolMapper.insert(repository);
             session.commit();
+            log.info("新增情报："+strRepoFullName);
             if(init){
                 String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github.com/"+strRepoFullName);
                 DingTalkRobot.sendMarkdownMessage(content);

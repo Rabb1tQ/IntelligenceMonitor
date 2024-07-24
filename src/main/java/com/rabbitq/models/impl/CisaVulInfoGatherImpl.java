@@ -10,8 +10,12 @@ import com.rabbitq.utils.DingTalkRobot;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+
+import static com.rabbitq.utils.GlobalConfig.init;
 
 /**
  * @Author: Rabb1tQ
@@ -23,7 +27,7 @@ import java.util.List;
 
 @InfoGatherInterfaceImplementation
 public class CisaVulInfoGatherImpl  implements InfoGatherInterface {
-
+    private static final Logger log = LogManager.getLogger(CisaVulInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String strCisaReportURL = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json";
@@ -60,8 +64,11 @@ public class CisaVulInfoGatherImpl  implements InfoGatherInterface {
             cisaVulInfoMapper.insert(cisaVulInfo);
             session.commit();
             session.close();
-            String content= DingTalkRobot.buildCisaMarkdownText(cisaVulInfo);
-            DingTalkRobot.sendMarkdownMessage(content);
+            log.info("新增情报："+vulnerability.getString("vulnerabilityName"));
+            if (init) {
+                String content = DingTalkRobot.buildCisaMarkdownText(cisaVulInfo);
+                DingTalkRobot.sendMarkdownMessage(content);
+            }
         }
     }
 }

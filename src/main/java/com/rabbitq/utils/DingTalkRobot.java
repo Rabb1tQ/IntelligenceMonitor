@@ -131,9 +131,6 @@ public class DingTalkRobot {
 
 
     public static void sendMarkdownMessage(String content) {
-        if(true){
-            return;
-        }
         try {
             String webhookUrl = String.valueOf(GlobalConfig.globalConfig.get("webhook"));
             long timestamp = System.currentTimeMillis();

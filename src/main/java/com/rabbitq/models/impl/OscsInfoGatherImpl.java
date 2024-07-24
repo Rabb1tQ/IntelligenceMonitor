@@ -11,6 +11,8 @@ import com.rabbitq.utils.DingTalkRobot;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 @InfoGatherInterfaceImplementation
 public class OscsInfoGatherImpl implements InfoGatherInterface {
+    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
 
     @Override
     public void getRepos() {
@@ -67,7 +70,7 @@ public class OscsInfoGatherImpl implements InfoGatherInterface {
             oscsVulInfo.setCveId(jsonObjectVulInfoDetail.getString("cve_id"));
             oscsVulInfo.setDescription(jsonObjectVulInfoDetail.getString("description"));
             oscsVulInfoMapper.insert(oscsVulInfo);
-
+    log.info("新增情报："+title);
             if (init) {
                 String content = DingTalkRobot.buildOscsMarkdownText(oscsVulInfo);
                 DingTalkRobot.sendMarkdownMessage(content);

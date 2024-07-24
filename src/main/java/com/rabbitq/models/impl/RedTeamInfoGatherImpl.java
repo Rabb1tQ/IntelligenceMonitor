@@ -23,6 +23,7 @@ import static com.rabbitq.utils.GithubRepositoryUtil.getRepositoryInfo;
 public class RedTeamInfoGatherImpl implements InfoGatherInterface {
 
 
+
     @Override
     public void getRepos() {
         String strReposLink = "https://api.github.com/repos/%s";

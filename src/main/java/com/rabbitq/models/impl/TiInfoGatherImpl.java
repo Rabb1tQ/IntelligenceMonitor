@@ -15,6 +15,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import static com.rabbitq.utils.GlobalConfig.init;
 
 /**
@@ -27,6 +30,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 @InfoGatherInterfaceImplementation
 public class TiInfoGatherImpl  implements InfoGatherInterface {
+    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String detailURL="https://ti.qianxin.com/alpha-api/v2/vuln/one-day";
@@ -60,7 +64,7 @@ public class TiInfoGatherImpl  implements InfoGatherInterface {
             }
             tiVulInfo.setTags(String.valueOf(tags));
             tiVulInfoMapper.insert(tiVulInfo);
-
+log.info("新增情报："+vuln_name);
             if (init) {
                 String content = DingTalkRobot.buildTiMarkdownText(tiVulInfo);
                 DingTalkRobot.sendMarkdownMessage(content);

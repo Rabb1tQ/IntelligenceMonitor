@@ -11,6 +11,8 @@ import com.rabbitq.utils.DingTalkRobot;
 import com.rabbitq.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static com.rabbitq.utils.GlobalConfig.init;
 
@@ -23,6 +25,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 @InfoGatherInterfaceImplementation
 public class MicrosoftInfoGatherImpl implements InfoGatherInterface {
+    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String strMsReportURL = "https://api.msrc.microsoft.com/sug/v2.0/zh-CN/vulnerability";
@@ -49,6 +52,7 @@ public class MicrosoftInfoGatherImpl implements InfoGatherInterface {
                 cveMonitorMs.setMitreUrl(mitreUrl);
                 cveMonitorMsMapperMapper.insert(cveMonitorMs);
                 session.commit();
+                log.info("新增情报："+strCVENumber);
                 if (init) {
                     String content = DingTalkRobot.buildMSVulMarkdownText(cveNumber, releaseDate, tag, mitreUrl);
                     DingTalkRobot.sendMarkdownMessage(content);

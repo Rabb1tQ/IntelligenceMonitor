@@ -58,6 +58,7 @@ public class ThreatIntelligenceJob implements Job {
 
         for (InfoGatherInterface impl : implementations) {
             try {
+                log.info("正在抓取情报源类："+impl.getClass().getName());
                 impl.getRepos();
                 //System.out.println(impl.getClass().getName());
             } catch (Exception e) {
