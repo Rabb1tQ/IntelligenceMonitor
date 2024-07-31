@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 public class GithubRepositoryUtil {
 
-    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
+    private static final Logger log = LogManager.getLogger(GithubRepositoryUtil.class);
 
     public static void getRepositoryInfo(SqlSessionFactory sqlSessionFactory, String strRepoFullName, JSONObject jsonObject) {
         SqlSession session = sqlSessionFactory.openSession();
