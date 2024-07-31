@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 @InfoGatherInterfaceImplementation
 public class ThreatbookInfoGatherImpl implements InfoGatherInterface {
-    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
+    private static final Logger log = LogManager.getLogger(ThreatbookInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String strInfoLinkURL = "https://x.threatbook.com/v5/node/vul_module/homePage";

@@ -28,7 +28,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 @InfoGatherInterfaceImplementation
 public class OscsInfoGatherImpl implements InfoGatherInterface {
-    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
+    private static final Logger log = LogManager.getLogger(OscsInfoGatherImpl.class);
 
     @Override
     public void getRepos() {

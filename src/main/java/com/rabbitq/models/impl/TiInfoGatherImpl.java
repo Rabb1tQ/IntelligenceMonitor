@@ -30,7 +30,7 @@ import static com.rabbitq.utils.GlobalConfig.init;
 
 @InfoGatherInterfaceImplementation
 public class TiInfoGatherImpl  implements InfoGatherInterface {
-    private static final Logger log = LogManager.getLogger(MicrosoftInfoGatherImpl.class);
+    private static final Logger log = LogManager.getLogger(TiInfoGatherImpl.class);
     @Override
     public void getRepos() {
         String detailURL="https://ti.qianxin.com/alpha-api/v2/vuln/one-day";
