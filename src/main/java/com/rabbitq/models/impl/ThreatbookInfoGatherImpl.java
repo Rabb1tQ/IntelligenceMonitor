@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.rabbitq.utils.GlobalConfig.init;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 @InfoGatherInterfaceImplementation
 public class ThreatbookInfoGatherImpl implements InfoGatherInterface {
     private static final Logger log = LogManager.getLogger(ThreatbookInfoGatherImpl.class);
+
     @Override
     public void getRepos() {
         String strInfoLinkURL = "https://x.threatbook.com/v5/node/vul_module/homePage";
@@ -39,40 +41,42 @@ public class ThreatbookInfoGatherImpl implements InfoGatherInterface {
         SqlSession session = sqlSessionFactory.openSession();
         for (int i = 0; i < jsonArrayAPIResult.size(); i++) {
             JSONObject jsonObjectVulInfo = jsonArrayAPIResult.getJSONObject(i);
-            ThreatbookVulInfoMapper threatbookVulInfoMapper= session.getMapper(ThreatbookVulInfoMapper.class);
+            ThreatbookVulInfoMapper threatbookVulInfoMapper = session.getMapper(ThreatbookVulInfoMapper.class);
             String vulnName = jsonObjectVulInfo.getString("vuln_name_zh");
             ThreatbookVulInfo threatbookVulInfo = threatbookVulInfoMapper.selectByVulName(vulnName);
+
             if (threatbookVulInfo != null) {
                 continue;
             } else {
                 threatbookVulInfo = new ThreatbookVulInfo();
             }
-            List<String> tags=new ArrayList<>();
-            boolean pocExist= (boolean) jsonObjectVulInfo.get("pocExist");
+            threatbookVulInfo.setVulnName(vulnName);
+            List<String> tags = new ArrayList<>();
+            boolean pocExist = (boolean) jsonObjectVulInfo.get("pocExist");
 
-            if(pocExist){
+            if (pocExist) {
                 tags.add("POC存在");
             }
 
-            boolean solution= (boolean) jsonObjectVulInfo.get("solution");
-            if(solution){
+            boolean solution = (boolean) jsonObjectVulInfo.get("solution");
+            if (solution) {
                 tags.add("有修复方案");
             }
-            boolean premium= (boolean) jsonObjectVulInfo.get("premium");
-            if(premium){
+            boolean premium = (boolean) jsonObjectVulInfo.get("premium");
+            if (premium) {
                 tags.add("有漏洞分析");
             }
-            if(tags.isEmpty()){
+            if (tags.isEmpty()) {
                 tags.add("无");
             }
             threatbookVulInfo.setTags(tags.toString());
             threatbookVulInfo.setVulnUpdateTime(jsonObjectVulInfo.getString("vuln_publish_time"));
             threatbookVulInfo.setRiskLevel(jsonObjectVulInfo.getString("riskLevel"));
-            List<String> listAffects= (List<String>) jsonObjectVulInfo.get("affects");
+            List<String> listAffects = (List<String>) jsonObjectVulInfo.get("affects");
             threatbookVulInfo.setAffects(listAffects.toString());
 
             threatbookVulInfoMapper.insert(threatbookVulInfo);
-            log.info("新增情报："+vulnName);
+            log.info("新增情报：" + vulnName);
 
             if (init) {
                 String content = DingTalkRobot.buildThreatbookMarkdownText(threatbookVulInfo);
