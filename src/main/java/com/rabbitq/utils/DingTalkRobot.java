@@ -1,17 +1,18 @@
 package com.rabbitq.utils;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson2.JSONObject;
 import com.rabbitq.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Encoder;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.net.URLEncoder;
 import java.util.Map;
 
+@SuppressWarnings("ALL")
 public class DingTalkRobot {
 
     private static final Logger log = LoggerFactory.getLogger(DingTalkRobot.class);
@@ -140,8 +141,8 @@ public class DingTalkRobot {
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
             byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
-            BASE64Encoder base64Encoder = new BASE64Encoder();
-            String sign = URLEncoder.encode(base64Encoder.encode(signData), "UTF-8");
+
+            String sign = URLEncoder.encode(Base64.encode(signData), "UTF-8");
 
 
             String urlStr = webhookUrl + "&timestamp=" + timestamp + "&sign=" + sign;
@@ -158,7 +159,7 @@ public class DingTalkRobot {
             String response = HttpUtil.post(urlStr, json.toJSONString());
             System.out.println(response);
         } catch (Exception e) {
-            log.error("消息发送失败：",e);
+            log.error("消息发送失败：", e);
         }
     }
 
@@ -174,7 +175,7 @@ public class DingTalkRobot {
         avdEntity.setDescription("csacscsacscascsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         avdEntity.setVulType("sql注入");
         avdEntity.setReference("https://www.baidu.com");
-        String content= DingTalkRobot.buildAvdMarkdownText(avdEntity);
+        String content = DingTalkRobot.buildAvdMarkdownText(avdEntity);
         DingTalkRobot.sendMarkdownMessage(content);
     }
 }
