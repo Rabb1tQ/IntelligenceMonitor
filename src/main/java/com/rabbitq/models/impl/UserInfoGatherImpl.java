@@ -33,9 +33,8 @@ public class UserInfoGatherImpl implements InfoGatherInterface {
         String strUserReposLink = "https://api.github.com/users/%s/repos?sort=updated&order=desc";
         List<String> listUser;
         try {
-            listUser= (List<String>) GlobalConfig.globalConfig.get("user_list");
-        }
-        catch (Exception e) {
+            listUser = (List<String>) GlobalConfig.globalConfig.get("user_list");
+        } catch (Exception e) {
             return;
         }
 
@@ -43,28 +42,28 @@ public class UserInfoGatherImpl implements InfoGatherInterface {
         for (String s : listUser) {
             String strAPI = String.format(strUserReposLink, s);
             String result1;
-            String strGithubToken=String.valueOf(GlobalConfig.globalConfig.get("github_token"));
-            if (strGithubToken.isEmpty()){
+            String strGithubToken = String.valueOf(GlobalConfig.globalConfig.get("github_token"));
+            if (strGithubToken.isEmpty()) {
                 result1 = HttpRequest.get(strAPI).execute().body();
-            }else {
-                result1 = HttpRequest.get(strAPI).header("Authorization","token "+strGithubToken).execute().body();
+            } else {
+                result1 = HttpRequest.get(strAPI).header("Authorization", "token " + strGithubToken).execute().body();
             }
+
             JSONArray jsonArray = JSONArray.parseArray(result1);
+
             for (Object o : jsonArray) {
                 try {
                     JSONObject jsonObject = (JSONObject) o;
                     String strRepoFullName = String.valueOf(jsonObject.get("full_name"));
                     getRepositoryInfo(sqlSessionFactory, strRepoFullName, jsonObject);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     log.error(e.getMessage());
+
                 }
             }
 
         }
     }
-
-
 
 
 }
