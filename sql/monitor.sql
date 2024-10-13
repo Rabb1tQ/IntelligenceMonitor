@@ -65,7 +65,7 @@ create table threatbook_vul_info
     risk_level       varchar(10)  null comment '风险等级',
     vuln_name        varchar(500) null,
     vuln_update_time varchar(50)  null comment '更新时间',
-    affects          varchar(500) null,
+    affects          varchar(10000) null,
     tags             varchar(500) null
 );
 
