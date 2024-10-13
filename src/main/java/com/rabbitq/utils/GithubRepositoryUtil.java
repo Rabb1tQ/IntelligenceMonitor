@@ -53,7 +53,7 @@ public class GithubRepositoryUtil {
             log.info("新增情报："+strRepoFullName);
             if(init){
                 String content=DingTalkRobot.buildGithubMarkdownText(arrRepoFullName[0],arrRepoFullName[1],String.valueOf(jsonObject.get("description")),"https://github.com/"+strRepoFullName);
-                //DingTalkRobot.sendMarkdownMessage(content);
+                DingTalkRobot.sendMarkdownMessage(content);
             }
 
         }
