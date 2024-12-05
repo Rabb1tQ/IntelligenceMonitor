@@ -19,6 +19,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static com.rabbitq.utils.GlobalConfig.init;
+
 /**
  * @Author: Rabb1tQ
  * @CreateTime: 2024-07-05
@@ -69,8 +71,10 @@ public class AVDInfoGatherImpl  implements InfoGatherInterface {
                 session.commit();
                 session.close();
                 log.info("新增情报："+vulName);
-                String content= DingTalkRobot.buildAvdMarkdownText(avd);
-                DingTalkRobot.sendMarkdownMessage(content);
+                if (init) {
+                    String content= DingTalkRobot.buildAvdMarkdownText(avd);
+                    DingTalkRobot.sendMarkdownMessage(content);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
